@@ -35,9 +35,21 @@ app.get('/todos', (req, res) => {
 
 app.delete('/todos/:id', (req, res) => {
     //get the id
-
+    let id = req.params.id;
     //validate the id -> not valid? return 404
 
+    if (!ObjectID.isValid(id)){
+        return res.status(404).send();
+    }
+
+    Todo.findByIdAndDelete(id).then((todo) => {
+        if(!todo) {
+            return res.status(404).send();
+        }
+        res.send(todo);
+    }).catch((err) => {
+        return todo.status(400).send();
+    })
     //remove todo by id
         //success
             //if no doc send 404
