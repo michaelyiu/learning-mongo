@@ -15,6 +15,11 @@ let Todo = mongoose.model('Todo', {
     completedAt: {
         type: Number,
         default: null
+    },
+    //creator added to make todos private. only the creator will have access to the todos that they created
+    _creator: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
     }
 });
 
